@@ -1,4 +1,5 @@
 import { DUMMY_NEWS } from "@/dummy-news";
+import { notFound } from "next/navigation";
 
 const ImagePage = ({ params }) => {
 	const newsItemSlug = params.slug;
@@ -7,9 +8,11 @@ const ImagePage = ({ params }) => {
 	if (!newsItem) {
 		return notFound();
 	}
-    return <div className='fullscreen-image'>
-        <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
-    </div>;
+	return (
+		<div className='fullscreen-image'>
+			<img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
+		</div>
+	);
 };
 
 export default ImagePage;
