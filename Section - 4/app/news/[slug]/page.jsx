@@ -1,5 +1,5 @@
 import { DUMMY_NEWS } from "@/dummy-news";
-import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
@@ -13,13 +13,13 @@ const NewsDetailsPage = ({ params }) => {
     const newsId = params.slug;
     const newsItem = DUMMY_NEWS.find((news) => news.slug === newsId);
 
-    // if (!newsItem) {
-    //     return notFound();
-    // }
+    if (!newsItem) {
+        return notFound();
+    }
     return (
         <article className="news-article">
             <header>
-                <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
+                <Link href={`/news/${newsItem.slug}/image`}><img src={`/images/news/${newsItem.image}`} alt={newsItem.title} /></Link>
                 <h1>{newsItem.title}</h1>
                 <time datetime={newsItem.date}>{newsItem.date}</time>
             </header>
