@@ -1,3 +1,4 @@
+import { fetchData } from "@/components/fetchData"
 import NewsList from "@/components/news-list"
 import { DUMMY_NEWS } from "@/dummy-news"
 
@@ -8,13 +9,17 @@ export async function generateMetadata() {
     }
 }
 
-const NewsPage = () => {
+const NewsPage = async () => {
+
+    const data = await fetchData("news");
+    console.log(data);
+
     return (
         <>
             <header>
                 <h1>News Page</h1>
             </header>
-            <main>
+            <main>  
                 <NewsList news={DUMMY_NEWS} />
             </main>
         </>
