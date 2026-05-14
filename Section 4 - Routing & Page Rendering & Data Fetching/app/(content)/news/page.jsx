@@ -12,7 +12,6 @@ export async function generateMetadata() {
 const NewsPage = async () => {
 
     const data = await fetchData("news");
-    console.log(data);
 
     return (
         <>
