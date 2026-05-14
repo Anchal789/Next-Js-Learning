@@ -53,16 +53,32 @@ export async function verifyAuth() {
 				sessionCookie.value,
 				sessionCookie.attributes,
 			);
-        }
-        if(!result.session) {
-            const sessionCookie = lucia.createBlankSessionCookie(sessionId);
-            cookies().set(
-                sessionCookie.name,
-                sessionCookie.value,
-                sessionCookie.attributes,
-            );
-        }
+		}
+		if (!result.session) {
+			const sessionCookie = lucia.createBlankSessionCookie(sessionId);
+			cookies().set(
+				sessionCookie.name,
+				sessionCookie.value,
+				sessionCookie.attributes,
+			);
+		}
 	} catch {}
 
 	return result;
+}
+
+export async function destroySession() {
+	const { session } = await verifyAuth();
+
+	if (!session) {
+		return { error: "No active session." };
+	}
+
+	await lucia.invalidateSession(session.id);
+	const sessionCookie = lucia.createBlankSessionCookie(session.id);
+	cookies().set(
+		sessionCookie.name,
+		sessionCookie.value,
+		sessionCookie.attributes,
+	);
 }
